@@ -1,0 +1,10 @@
+site 'http://community.opscode.com/api/v1'
+
+cookbook 'apt'
+cookbook 'build-essential'
+cookbook 'mysql2_chef_gem'
+cookbook 'database'
+cookbook 'webserver_cookbook', :git => 'https://github.com/LosYear/Vagrant-Chef-WebappCookbook.git'
+cookbook 'apache2', '~> 3.1.0'
+cookbook 'php5-mysql'
+cookbook 'composer'
