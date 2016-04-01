@@ -11,6 +11,9 @@ $config = [
   		'fluent' => [
   			'class' => 'yii\fluent\Module',
   		],
+        'backend' =>[
+            'class' => 'app\modules\backend\Module',
+        ]
   	],
     'components' => [
         'request' => [
@@ -23,6 +26,19 @@ $config = [
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
+		'i18n' => [
+            'translations' => [
+                'app/*' => [
+                    'sourceLanguage' => 'en-US',
+                    'basePath' => '@app/messages',
+                    'class' => 'yii\i18n\PhpMessageSource',
+                    'fileMap' => [
+                        'app/main' => 'main.php',
+                    ]
+                ]
+            ]
+        ],
+		
         'mailer' => [
             'class' => 'yii\swiftmailer\Mailer',
             // send all mails to a file by default. You have to set
@@ -44,10 +60,22 @@ $config = [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
+				'admin/<controller:()>/<action:[\w-]+>' => 'backend/<controller>/<action>',
                 '<controller:\w+>/<action:[\w-]+>/<id:\d+>' => '<controller>/<action>',
                 '<module:\w+>/<controller:\w+>/<action:[\w-]+>/<id:\d+>' => '<module>/<controller>/<action>'
             ],
          ],
+		 
+		 
+		 /*'view' => [
+            'theme' =>[
+                'pathMap' => [
+                    '@vendor/losyear/yii2-fluent/modules/admin/views/partials' => '@app/modules/backend/views/partials'
+                ],
+                'baseUrl' => '@web',
+                'basePath' => '@app/theme'
+            ]
+        ]*/
     ],
     'params' => $params,
 ];
@@ -57,12 +85,13 @@ if (YII_ENV_DEV) {
     $config['bootstrap'][] = 'debug';
     $config['modules']['debug'] = [
         'class' => 'yii\debug\Module',
+        'allowedIPs' => ['*']
     ];
 
     $config['bootstrap'][] = 'gii';
     $config['modules']['gii'] = [
         'class' => 'yii\gii\Module',
+        'allowedIPs' => ['*']
     ];
 }
-
 return array_merge_recursive($config, require(dirname(__FILE__) . '/../vendor/losyear/yii2-fluent/config/fluent.php'));

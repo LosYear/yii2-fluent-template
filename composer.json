@@ -24,7 +24,7 @@
         "yiisoft/yii2": ">=2.0.5",
         "yiisoft/yii2-bootstrap": "*",
         "yiisoft/yii2-swiftmailer": "*",
-		"losyear/yii2-fluent": "0.0.1"
+		"losyear/yii2-fluent": "0.0.1-patch1"
     },
     "require-dev": {
         "yiisoft/yii2-codeception": "*",
